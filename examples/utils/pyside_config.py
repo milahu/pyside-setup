@@ -289,6 +289,12 @@ def get_package_qmake_lflags(which_package):
 
 def get_shared_libraries_data(which_package):
     package_path = find_package(which_package)
+    # find libshiboken6.abi3.so on NixOS Linux
+    # a: /nix/store/pv1lamnnkcvvx459ippl8jlfmkqv6w72-shiboken6-6.9.1/lib/python3.13/site-packages/shiboken6
+    # b: /nix/store/pv1lamnnkcvvx459ippl8jlfmkqv6w72-shiboken6-6.9.1/lib
+    # z: /nix/store/pv1lamnnkcvvx459ippl8jlfmkqv6w72-shiboken6-6.9.1/lib/libshiboken6.abi3.so
+    if match := re.match(r"(/nix/store/[0-9a-z]{32}-[^/]+/lib)/python[0-9.]+/site-packages/(.*)", package_path):
+        package_path = match.group(1)
     if package_path is None:
         return None
 
