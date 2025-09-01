@@ -297,6 +297,14 @@ def get_package_include_path(which_package):
     if package_path is None:
         return None
 
+    if match := re.match(r"(/nix/store/[0-9a-z]{32}-[^/]+)/lib/python[0-9.]+/site-packages/(.*)", package_path):
+        # a: /nix/store/bmqq1d1vvbvjy1mgw1535hgd2xyc0klr-pyside6-6.9.1/lib/python3.13/site-packages/PySide6/include
+        # b: /nix/store/bmqq1d1vvbvjy1mgw1535hgd2xyc0klr-pyside6-6.9.1/include/PySide6
+        # a: /nix/store/pv1lamnnkcvvx459ippl8jlfmkqv6w72-shiboken6-6.9.1/lib/python3.13/site-packages/shiboken6/include
+        # b: /nix/store/pv1lamnnkcvvx459ippl8jlfmkqv6w72-shiboken6-6.9.1/include/shiboken6
+        includes = match.group(1) + "/include/" + match.group(2)
+        return includes
+
     includes = f"{package_path}/include"
 
     return includes
