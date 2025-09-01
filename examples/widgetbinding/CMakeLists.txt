@@ -181,6 +181,7 @@ target_compile_definitions(${wiggly_library} PRIVATE BINDINGS_BUILD)
 set(shiboken_options --generator-set=shiboken --enable-parent-ctor-heuristic
     --enable-pyside-extensions --enable-return-value-heuristic --use-isnull-as-nb_nonzero
     --avoid-protected-hack
+    --debug-level=full
     ${INCLUDES}
     -I${CMAKE_SOURCE_DIR}
     -T${CMAKE_SOURCE_DIR}
