@@ -9,6 +9,8 @@
 #include <QtWidgets/QWidget>
 #include <QtCore/QBasicTimer>
 
+namespace WigglyWidgetNamespace {
+
 //! [0]
 class BINDINGS_API WigglyWidget : public QWidget
 {
@@ -36,5 +38,7 @@ private:
     int m_step = 0;
 };
 //! [0]
+
+}; // namespace WigglyWidgetNamespace
 
 #endif

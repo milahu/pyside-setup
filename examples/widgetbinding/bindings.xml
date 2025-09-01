@@ -5,5 +5,7 @@
 -->
 <typesystem package="wiggly">
     <load-typesystem name="typesystem_widgets.xml" generate="no"/>
-    <object-type name="WigglyWidget"/>
+     <namespace-type name="WigglyWidgetNamespace">
+        <object-type name="WigglyWidget"/>
+     </namespace-type>
 </typesystem>

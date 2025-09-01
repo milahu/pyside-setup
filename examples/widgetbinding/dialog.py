@@ -5,7 +5,7 @@ from __future__ import annotations
 from PySide6.QtWidgets import QDialog, QLineEdit, QVBoxLayout
 
 # Python binding from the C++ widget
-from wiggly import WigglyWidget as WigglyWidgetCPP
+from wiggly.WigglyNamespace import WigglyWidget as WigglyWidgetCPP
 
 # Python-only widget
 from wigglywidget import WigglyWidget as WigglyWidgetPY

@@ -7,6 +7,8 @@
 #include <QtGui/QPainter>
 #include <QtCore/QTimerEvent>
 
+namespace WigglyWidgetNamespace {
+
 //! [0]
 WigglyWidget::WigglyWidget(QWidget *parent)
     : QWidget(parent)
@@ -90,3 +92,5 @@ void WigglyWidget::setRunning(bool r)
     else
         m_timer.stop();
 }
+
+}; // namespace WigglyWidgetNamespace
