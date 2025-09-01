@@ -304,3 +304,19 @@ install(FILES ${windows_shiboken_shared_libraries} DESTINATION ${CMAKE_CURRENT_S
 # =============================================================================================
 # !!! End of dubious section.
 # =============================================================================================
+
+# install files to CMAKE_INSTALL_PREFIX
+# https://cmake.org/cmake/help/book/mastering-cmake/chapter/Install.html
+# https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html
+# install ${CMAKE_INSTALL_PREFIX}/lib/wiggly.so
+install(TARGETS ${bindings_library} LIBRARY DESTINATION lib)
+# install ${CMAKE_INSTALL_PREFIX}/lib/libwiggly.so
+install(TARGETS ${wiggly_library} LIBRARY DESTINATION lib)
+# install ${CMAKE_INSTALL_PREFIX}/lib/*.py
+set(python_files
+    dialog.py
+    main.py
+    registerwigglywidget.py
+    wigglywidget.py
+)
+install(FILES ${python_files} DESTINATION lib)
