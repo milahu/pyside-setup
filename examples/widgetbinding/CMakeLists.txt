@@ -222,6 +222,10 @@ target_include_directories(${bindings_library} PRIVATE ${shiboken_include_dir})
 
 target_link_libraries(${wiggly_library} PRIVATE Qt6::Widgets)
 target_link_libraries(${bindings_library} PRIVATE Qt6::Widgets)
+# FIXME link bindings_library to install path of wiggly_library
+# link wiggly.so to one of
+# ${CMAKE_INSTALL_PREFIX}/lib/libwiggly.so
+# \$ORIGIN/libwiggly.so
 target_link_libraries(${bindings_library} PRIVATE ${wiggly_library})
 target_link_libraries(${bindings_library} PRIVATE ${pyside_shared_libraries})
 target_link_libraries(${bindings_library} PRIVATE ${shiboken_shared_libraries})
