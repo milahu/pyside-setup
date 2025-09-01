@@ -72,5 +72,19 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     ln -sr $out/lib/main.py $out/bin/wiggly
     chmod +x $out/lib/main.py
+
+    # test
+    echo testing wiggly.so
+    set +e # allow errors
+    set -x
+    pushd $out/lib
+    ldd wiggly.so | grep libwiggly.so
+    # FIXME no PyInit_wiggly symbol
+    nm -D wiggly.so
+    # FIXME ImportError: dynamic module does not define module export function (PyInit_wiggly)
+    python -c "import wiggly"
+    popd
+    set +x
+    set -e
   '';
 }
