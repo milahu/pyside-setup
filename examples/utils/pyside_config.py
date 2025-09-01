@@ -44,6 +44,8 @@ options.append(("--shiboken-generator-path",
                 "Print shiboken generator location"))
 options.append(("--pyside-path", lambda: find_pyside(), pyside_error,
                 f"Print {PYSIDE_MODULE} location"))
+options.append(("--pyside-typesystems-path", lambda: find_pyside_typesystems(), pyside_error,
+                f"Print {PYSIDE_MODULE} typesystems location"))
 
 options.append(("--python-include-path",
                 lambda: get_python_include_path(),
@@ -168,6 +170,16 @@ def link_option(lib):
 # Locate PySide6 via sys.path package path.
 def find_pyside():
     return find_package_path(PYSIDE_MODULE)
+
+
+def find_pyside_typesystems():
+    package_path = find_package_path(PYSIDE_MODULE)
+    if package_path.startswith("/nix/store/"):
+        match = re.match(r"(/nix/store/[0-9a-z]{32}-[^/]+)/lib/python[0-9.]+/site-packages/(.*)", package_path)
+        # a: /nix/store/bmqq1d1vvbvjy1mgw1535hgd2xyc0klr-pyside6-6.9.1/lib/python3.13/site-packages/PySide6
+        # b: /nix/store/qkq5nkbkjjw4mkf15am222sgvl3zjwyi-pyside6-6.9.0/share/PySide6
+        package_path = match.group(1) + "/share/" + match.group(2)
+    return f"{package_path}/typesystems"
 
 
 def find_shiboken_module():

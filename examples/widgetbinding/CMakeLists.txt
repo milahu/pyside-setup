@@ -98,6 +98,7 @@ endmacro()
 pyside_config(--shiboken-module-path shiboken_module_path)
 pyside_config(--shiboken-generator-path shiboken_generator_path)
 pyside_config(--pyside-path pyside_path)
+pyside_config(--pyside-typesystems-path pyside_typesystems_path)
 pyside_config(--pyside-include-path pyside_include_dir 1)
 pyside_config(--python-include-path python_include_dir)
 pyside_config(--shiboken-include-path shiboken_include_dir 1)
@@ -187,7 +188,7 @@ set(shiboken_options --generator-set=shiboken --enable-parent-ctor-heuristic
     ${INCLUDES}
     -I${CMAKE_SOURCE_DIR}
     -T${CMAKE_SOURCE_DIR}
-    -T${pyside_path}/typesystems
+    -T${pyside_typesystems_path}
     --output-directory=${CMAKE_CURRENT_BINARY_DIR}
     )
 
