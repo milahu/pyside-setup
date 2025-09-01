@@ -175,7 +175,23 @@ def find_shiboken_module():
 
 
 def find_shiboken_generator():
-    return find_package_path(f"{SHIBOKEN}_generator")
+    package_path = find_package_path(f"{SHIBOKEN}_generator")
+    if package_path.startswith("/nix/store/"):
+        package_path = find_package_path(SHIBOKEN) # there is no extra "shiboken6_generator" package in nixpkgs
+        # a: /nix/store/pv1lamnnkcvvx459ippl8jlfmkqv6w72-shiboken6-6.9.1/lib/python3.13/site-packages/shiboken6_generator
+        # b: /nix/store/pv1lamnnkcvvx459ippl8jlfmkqv6w72-shiboken6-6.9.1/bin/shiboken6
+        match = re.match(r"(/nix/store/[0-9a-z]{32}-[^/]+)/lib/python[0-9.]+/site-packages/(.*)", package_path)
+        bin_path = match.group(1) + "/bin"
+        # "/shiboken6" is appended later in CMakeLists.txt
+        # set(shiboken_path "${shiboken_generator_path}/shiboken6${CMAKE_EXECUTABLE_SUFFIX}")
+        return bin_path
+        r"""
+        for name in os.listdir(bin_path):
+            if re.match(r"shiboken[0-9]+", name):
+                return bin_path + "/" + name
+        raise Exception(f"not found shiboken executable of the python package {package_path}")
+        """
+    return package_path
 
 
 def find_package(which_package):
